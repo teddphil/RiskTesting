@@ -4,7 +4,10 @@
 #include "atm/Utils.hpp"
 #include "/Users/teddy/Downloads/atm-risk-testing/models/BasicVaR.cpp"
 #include <iostream>
-#include <random>
+#include <fstream>
+#include <sstream>
+#include <vector>
+#include <stdexcept>
 #include <filesystem>
 #include <cstring>
 
@@ -31,16 +34,44 @@ int main(int argc, char** argv) {
     atm::JUnitXmlReporter junit(cmd.outdir + "/junit.xml");
     atm::JsonReporter json(cmd.outdir + "/summary.json");
 
-    // Sample dataset: synthetic PnL with Gaussian daily returns (for demo only).
-    std::mt19937 rng(42);
-    std::normal_distribution<double> dist(0.0, 1.0); // 1 unit std dev
+    // Load PnL data from data/pnl_volatility.csv
     std::vector<double> pnl;
-    pnl.reserve(1000);
-    for (int i = 0; i < 1000; ++i) pnl.push_back(dist(rng));
+    std::ifstream file("data/pnl_volatility.csv");
+    if (!file.is_open()) {
+        throw std::runtime_error("Failed to open data/pnl_volatility.csv");
+    }
+
+    std::string line;
+    bool first_line = true;
+    while (std::getline(file, line)) {
+        // Skip the header line ("pnl")
+        if (first_line) {
+            first_line = false;
+            continue;
+        }
+        // Skip empty lines
+        if (line.empty()) {
+            continue;
+        }
+        try {
+            // Convert line to double
+            double value = std::stod(line);
+            pnl.push_back(value);
+        } catch (const std::exception& e) {
+            throw std::runtime_error("Failed to parse value in data/pnl_volatility.csv: " + line);
+        }
+    }
+    file.close();
+
+    // Verify data was loaded
+    if (pnl.size() < 251) { // Need at least 250 + 1 for rolling window tests
+        throw std::runtime_error("Insufficient data in data/pnl_volatility.csv: got " + 
+                                 std::to_string(pnl.size()) + ", need at least 251");
+    }
 
     // Create model & context
     BasicVaR95 model(250);
-    std::string datasetId = "synthetic_gauss_sigma1";
+    std::string datasetId = "pnl_volatility";
     std::string testType = "VaRBacktest";
 
     // Define test(s)
@@ -84,13 +115,13 @@ int main(int argc, char** argv) {
         }
     });
 
-    // Test 2: Stability check — VaR should not explode on stable Gaussian
+    // Test 2: Stability check — VaR should not explode
     runner.addTest(atm::RiskTest{
         "VaR magnitude sanity",
         [&]() -> std::vector<atm::MetricRecord> {
             std::vector<atm::MetricRecord> recs;
             double var = model.riskMeasure({pnl.end() - 250, pnl.end()});
-            bool ok = (var > 0.5 && var < 2.5); // VaR 95% for N(0,1) ≈ 1.64
+            bool ok = (var > 0.5 && var < 5.0); // Adjusted for volatility clustering
             atm::MetricRecord r;
             r.timestampUtc = atm::nowUtcIso();
             r.modelId = model.id();
@@ -99,9 +130,9 @@ int main(int argc, char** argv) {
             r.testType = "Sanity";
             r.metricName = "VaR95_value";
             r.metricValue = var;
-            r.threshold = 2.5;
+            r.threshold = 5.0;
             r.pass = ok;
-            r.notes = "Expected around 1.64 for N(0,1)";
+            r.notes = "Expected reasonable VaR for volatile PnL data";
             recs.push_back(r);
             return recs;
         }

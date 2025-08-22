@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="atm-risk-testing" tests="2" failures="0">
+  <testcase classname="BasicVaR95" name="var_exception_rate">
+  </testcase>
+  <testcase classname="BasicVaR95" name="VaR95_value">
+  </testcase>
+</testsuite>

@@ -1,0 +1,28 @@
+{
+  "records": [
+    {
+      "timestamp_utc": "2025-08-22T21:22:21Z",
+      "model_id": "BasicVaR95",
+      "model_version": "1.0.0",
+      "dataset_id": "synthetic_gauss_sigma1",
+      "test_type": "VaRBacktest",
+      "metric_name": "var_exception_rate",
+      "metric_value": 0.0440587,
+      "threshold": 0.07,
+      "pass": true,
+      "notes": "target ~0.05 (95% VaR); acceptable range [0.03, 0.07]"
+    },
+    {
+      "timestamp_utc": "2025-08-22T21:22:21Z",
+      "model_id": "BasicVaR95",
+      "model_version": "1.0.0",
+      "dataset_id": "synthetic_gauss_sigma1",
+      "test_type": "Sanity",
+      "metric_name": "VaR95_value",
+      "metric_value": 1.53253,
+      "threshold": 2.5,
+      "pass": true,
+      "notes": "Expected around 1.64 for N(0,1)"
+    }
+  ]
+}

@@ -1,0 +1,2 @@
+/usr/bin/ar qc libatm.a CMakeFiles/atm.dir/src/Metrics.cpp.o CMakeFiles/atm.dir/src/Reporter.cpp.o CMakeFiles/atm.dir/src/Runner.cpp.o CMakeFiles/atm.dir/src/Utils.cpp.o
+/usr/bin/ranlib libatm.a

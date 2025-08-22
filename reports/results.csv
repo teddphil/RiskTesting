@@ -1,0 +1,3 @@
+timestamp_utc,model_id,model_version,dataset_id,test_type,metric_name,metric_value,threshold,pass,notes
+2025-08-22T21:22:21Z,BasicVaR95,1.0.0,synthetic_gauss_sigma1,VaRBacktest,var_exception_rate,0.04405874499,0.07,true,target ~0.05 (95% VaR); acceptable range [0.03, 0.07]
+2025-08-22T21:22:21Z,BasicVaR95,1.0.0,synthetic_gauss_sigma1,Sanity,VaR95_value,1.532527332,2.5,true,Expected around 1.64 for N(0,1)
