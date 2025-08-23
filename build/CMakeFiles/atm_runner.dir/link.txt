@@ -1,1 +1,0 @@
-/usr/bin/c++ -O3 -DNDEBUG -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/atm_runner.dir/tests/test_volatility.cpp.o CMakeFiles/atm_runner.dir/models/BasicVaR.cpp.o -o atm_runner  libatm.a
