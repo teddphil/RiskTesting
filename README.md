@@ -1,7 +1,7 @@
 # ATM Risk Testing — Automated Testing Framework for Risk Models (C++)
 
 A lightweight C++17 framework to **automate testing/validation** of risk models with
-**regulatory-style reporting** (CSV + JUnit XML) suitable for CI (e.g., GitHub Actions).
+**regulatory-style reporting** (CSV + JUnit XML).
 
 ## Features
 - Tiny dependency footprint (pure C++17).
