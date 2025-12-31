@@ -6,7 +6,7 @@ ATM Risk Testing — Automated Testing Framework for Risk Models (C++), a lightw
 
 #### Features
 - Tiny dependency footprint (pure C++17).
-- Define RiskModels and RiskTests.
+- Define `RiskModel`s and `RiskTest`s.
 - Built-in metrics: RMSE, bias, hit-rate (coverage), MAPE.
 - Reporters:
   - CSVReporter: tabular record for audit/regulatory export.
@@ -29,6 +29,8 @@ Run
 
 Reports are written to `reports/`:
 - `results.csv` (regulatory-style tabular record)
+  - `timestamp_utc`, `model_id`, `model_version`, `dataset_id`, `test_type`, `metric_name`, `metric_value`,
+  `threshold`, `pass`, `notes`
 - `junit.xml` (CI parsing)
 - `summary.json` (machine-readable)
 
@@ -46,8 +48,3 @@ atm-risk-testing/
 ├─ README.md
 └─ LICENSE
 ```
-
-#### Output csv schema
-Columns in `results.csv`:
-- `timestamp_utc`, `model_id`, `model_version`, `dataset_id`, `test_type`, `metric_name`, `metric_value`,
-  `threshold`, `pass`, `notes`
