@@ -1,10 +1,10 @@
 # ATM Risk Testing
 
-#### Overview
+### Overview
 
 ATM Risk Testing — Automated Testing Framework for Risk Models (C++), a lightweight C++17 framework to automate testing/validation of risk models with regulatory-style reporting (CSV + JUnit XML).
 
-#### Features
+### Features
 - Tiny dependency footprint (pure C++17).
 - Define `RiskModel`s and `RiskTest`s.
 - Built-in metrics: RMSE, bias, hit-rate (coverage), MAPE.
@@ -13,7 +13,7 @@ ATM Risk Testing — Automated Testing Framework for Risk Models (C++), a lightw
   - JUnitXmlReporter: CI-friendly test summary.
 - Sample model: BasicVaR95 (historical VaR @ 95%).
 
-#### Usage
+### Usage
 
 Build
 ```bash
@@ -34,7 +34,7 @@ Reports are written to `reports/`:
 - `junit.xml` (CI parsing)
 - `summary.json` (machine-readable)
 
-#### Structure
+### Structure
 ```text
 atm-risk-testing/
 ├─ include/atm/              # framework headers
