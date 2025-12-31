@@ -13,27 +13,6 @@ ATM Risk Testing — Automated Testing Framework for Risk Models (C++), a lightw
   - JUnitXmlReporter: CI-friendly test summary.
 - Sample model: BasicVaR95 (historical VaR @ 95%).
 
-### Usage
-
-Build
-```bash
-mkdir -p build && cd build
-cmake .. -DCMAKE_BUILD_TYPE=Release
-cmake --build . --config Release
-```
-
-Run
-```bash
-./atm_runner --outdir ../reports
-```
-
-Reports are written to `reports/`:
-- `results.csv` (regulatory-style tabular record)
-  - `timestamp_utc`, `model_id`, `model_version`, `dataset_id`, `test_type`, `metric_name`, `metric_value`,
-  `threshold`, `pass`, `notes`
-- `junit.xml` (CI parsing)
-- `summary.json` (machine-readable)
-
 ### Structure
 ```text
 atm-risk-testing/
