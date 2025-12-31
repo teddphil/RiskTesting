@@ -1,25 +1,28 @@
-# ATM Risk Testing — Automated Testing Framework for Risk Models (C++)
+# ATM Risk Testing
 
-A lightweight C++17 framework to **automate testing/validation** of risk models with
-**regulatory-style reporting** (CSV + JUnit XML).
+#### Overview
 
-## Features
+ATM Risk Testing — Automated Testing Framework for Risk Models (C++), a lightweight C++17 framework to automate testing/validation of risk models with regulatory-style reporting (CSV + JUnit XML).
+
+#### Features
 - Tiny dependency footprint (pure C++17).
-- Define **RiskModel**s and **RiskTest**s.
+- Define RiskModels and RiskTests.
 - Built-in metrics: RMSE, bias, hit-rate (coverage), MAPE.
 - Reporters:
-  - **CSVReporter**: tabular record for audit/regulatory export.
-  - **JUnitXmlReporter**: CI-friendly test summary.
-- Sample model: **BasicVaR95** (historical VaR @ 95%).
+  - CSVReporter: tabular record for audit/regulatory export.
+  - JUnitXmlReporter: CI-friendly test summary.
+- Sample model: BasicVaR95 (historical VaR @ 95%).
 
-## Build
+#### Usage
+
+Build
 ```bash
 mkdir -p build && cd build
 cmake .. -DCMAKE_BUILD_TYPE=Release
 cmake --build . --config Release
 ```
 
-## Run
+Run
 ```bash
 ./atm_runner --outdir ../reports
 ```
@@ -29,7 +32,7 @@ Reports are written to `reports/`:
 - `junit.xml` (CI parsing)
 - `summary.json` (machine-readable)
 
-## Repo Structure
+#### Structure
 ```text
 atm-risk-testing/
 ├─ include/atm/              # framework headers
@@ -44,15 +47,7 @@ atm-risk-testing/
 └─ LICENSE
 ```
 
-## Add your own model
-1. Derive from `atm::RiskModel` and implement `id()`, `version()`, and `score(...)` or `predict(...)` as needed.
-2. Create test cases using `atm::RiskTest`.
-3. Register them in `tests/test_main.cpp`.
-
-## Regulatory-style CSV schema
+#### Output csv schema
 Columns in `results.csv`:
 - `timestamp_utc`, `model_id`, `model_version`, `dataset_id`, `test_type`, `metric_name`, `metric_value`,
   `threshold`, `pass`, `notes`
-
-## License
-MIT — see `LICENSE`.
